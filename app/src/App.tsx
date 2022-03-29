@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
+import { useState } from "react";
+import { Button } from "@blueprintjs/core";
+
+import PriceChart from "./components/PriceChart";
+import SymbolSelect from "./components/SymbolSelect";
+import { ISymbol } from "./utils/useSymbols";
+
+const App = () => {
+  const [symbol, setSymbol] = useState<ISymbol>();
+
+  const getPrediction = () => {};
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div>
+        <SymbolSelect symbol={symbol} onSelect={setSymbol} />
+        <Button
+          className="ml-4"
+          text="Get Prediction"
+          onClick={getPrediction}
+        />
+      </div>
+
+      <PriceChart symbol={symbol} />
     </div>
   );
-}
+};
 
 export default App;
