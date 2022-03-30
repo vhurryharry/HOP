@@ -22,7 +22,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <ResponsiveContainer width="95%" height="95%">
+    <ResponsiveContainer width="100%" height="95%">
       <LineChart
         data={data.data}
         margin={{

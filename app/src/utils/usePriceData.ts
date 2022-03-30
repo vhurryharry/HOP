@@ -23,6 +23,8 @@ const usePriceData = (symbol: string) => {
 
   useEffect(() => {
     if (symbol) {
+      setPriceData(null);
+
       fetch(`/api/${symbol}`)
         .then((res) => res.json())
         .then((data: IAPIPriceData) => {
