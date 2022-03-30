@@ -8,7 +8,7 @@ export interface IAPIPriceData {
 }
 
 export interface IPrice {
-  timestamp: string;
+  timestamp: number;
   price: number;
   prediction: number;
 }
@@ -31,7 +31,7 @@ const usePriceData = (symbol: string) => {
           setPriceData({
             symbol: data.symbol,
             data: data.timestamps.map((timestamp, i) => ({
-              timestamp: new Date(timestamp * 1000).toLocaleDateString(),
+              timestamp: timestamp,
               price: data.prices[i],
               prediction: data.predictions[i],
             })),
