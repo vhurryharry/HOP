@@ -5046,10 +5046,10 @@ defaultPrices = [
 
 
 class StockApiHandler(Resource):
-    def get(self, symbol):
+    def get_test(self, symbol):
         timestamps = defaultTS
         prices = defaultPrices
-        train(prices)
+        # train(prices)
         predictions = predict(prices)
 
         return {
@@ -5059,7 +5059,7 @@ class StockApiHandler(Resource):
             'predictions': predictions
         }
 
-    def get_real(self, symbol):
+    def get(self, symbol):
         url = "https://yfapi.net/v8/finance/chart/{}".format(symbol)
         queryString = {"range": "10y",
                        "interval": "1d",
@@ -5084,7 +5084,7 @@ class StockApiHandler(Resource):
 
         return {
             'symbol': symbol,
-            'timestamp': timestamps,
+            'timestamps': timestamps,
             'prices': prices,
             'predictions': predictions
         }

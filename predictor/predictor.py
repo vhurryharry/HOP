@@ -49,18 +49,6 @@ def train(prices):
 
     model.compile(loss='mean_squared_error', optimizer='adam')
 
-    # model = Sequential()
-    # model.add(LSTM(units=50, return_sequences=True,
-    #           input_shape=(x_train.shape[1], 1)))
-
-    # model.add(Dropout(0.1))
-    # model.add(LSTM(units=50))
-
-    # model.add(Dense(2))
-
-    # model.compile(loss='mean_squared_error', optimizer='adam',
-    #               metrics=['mean_absolute_error'])
-
     x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
     x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 
