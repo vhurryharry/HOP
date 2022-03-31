@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   ReferenceArea,
 } from "recharts";
-import { Button } from "@blueprintjs/core";
+import { Button, Spinner } from "@blueprintjs/core";
 
 import usePriceData from "../utils/usePriceData";
 import { ISymbol } from "../utils/useSymbols";
@@ -37,6 +37,8 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
       const [bottom, top] = getAxisYDomain(-1, -1, 20);
       setBottom(bottom);
       setTop(top);
+    } else {
+      setData(null);
     }
   }, [priceData]);
 
@@ -96,11 +98,56 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     setTop(top);
   };
 
-  if (!symbol) return <div>Please select a symbol</div>;
-  if (!data) return <div>Loading...</div>;
+  const timeConverter = (UNIX_timestamp) => {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+
+    return date + " " + month + " " + year;
+  };
+
+  const CustomToolTip = ({ payload, label, active }) => {
+    if (active && payload) {
+      return (
+        <div className="drop-shadow-md bg-white p-3">
+          <p>{timeConverter(label)}</p>
+          {payload.map((p) => (
+            <p key={p.dataKey}>
+              {p.dataKey}: ${p.value}
+            </p>
+          ))}
+        </div>
+      );
+    }
+
+    return <div></div>;
+  };
+
+  if (!symbol) return <div className="p-5">Please select a symbol</div>;
+  if (!data)
+    return (
+      <div className="p-5">
+        <Spinner />
+      </div>
+    );
 
   return (
-    <div className="w-full h-full p-5">
+    <div className="w-full h-full p-5 pb-0">
       <Button className="btn update" onClick={zoomOut}>
         Reset Chart
       </Button>
@@ -127,13 +174,11 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
             dataKey="timestamp"
             domain={[left, right]}
             type="number"
-            tickFormatter={(unixTime) =>
-              new Date(unixTime * 1000).toLocaleDateString()
-            }
+            tickFormatter={timeConverter}
           />
           <YAxis allowDataOverflow domain={[bottom, top]} type="number" />
 
-          <Tooltip />
+          <Tooltip content={CustomToolTip} />
           <Legend />
 
           <Line

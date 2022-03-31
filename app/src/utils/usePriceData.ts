@@ -28,11 +28,17 @@ const usePriceData = (symbol: string) => {
       fetch(`/api/${symbol}`)
         .then((res) => res.json())
         .then((data: IAPIPriceData) => {
+          for (let i = 0; i < 15; i++) {
+            data.timestamps.push(
+              data.timestamps[data.timestamps.length - 1] + 60 * 60 * 24
+            );
+          }
+
           setPriceData({
             symbol: data.symbol,
             data: data.timestamps.map((timestamp, i) => ({
               timestamp: timestamp,
-              price: data.prices[i],
+              price: i < data.prices.length ? data.prices[i] : undefined,
               prediction: data.predictions[i],
             })),
           });

@@ -5054,8 +5054,8 @@ class StockApiHandler(Resource):
 
         return {
             'symbol': symbol,
-            'timestamps': timestamps,
-            'prices': prices,
+            'timestamps': timestamps[-365:],
+            'prices': prices[-365:],
             'predictions': predictions
         }
 
@@ -5084,7 +5084,7 @@ class StockApiHandler(Resource):
 
         return {
             'symbol': symbol,
-            'timestamps': timestamps,
-            'prices': prices,
+            'timestamps': timestamps[-365:],
+            'prices': prices[-365:],
             'predictions': predictions
         }
