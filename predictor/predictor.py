@@ -41,7 +41,7 @@ def train(prices):
 
     x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
 
-    model.fit(x_train, y_train, epochs=1, batch_size=32)
+    model.fit(x_train, y_train, epochs=150, batch_size=32)
     model.save('stock_prediction.h5')
 
 
