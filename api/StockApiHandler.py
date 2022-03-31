@@ -5075,7 +5075,7 @@ class StockApiHandler(Resource):
             data = response.json()
 
             timestamps = data["chart"]["result"][0]["timestamp"]
-            prices = data["chart"]["result"][0]["indicators"]["adjclose"][0]["adjclose"]
+            prices = data["chart"]["result"][0]["indicators"]["quote"][0]["close"]
             predictions = predict(prices)
         else:
             timestamps = []

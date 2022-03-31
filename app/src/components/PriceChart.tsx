@@ -34,7 +34,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     if (priceData) {
       setData(priceData?.data);
 
-      const [bottom, top] = getAxisYDomain(-1, -1, 20);
+      const [bottom, top] = getAxisYDomain(-1, -1, 5);
       setBottom(bottom);
       setTop(top);
     } else {
@@ -75,7 +75,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     if (refAreaLeft > refAreaRight) [rAL, rAR] = [rAR, rAL];
 
     // yAxis domain
-    const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 20);
+    const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 5);
 
     setRefAreaLeft("");
     setRefAreaRight("");
@@ -93,7 +93,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     setLeft("dataMin");
     setRight("dataMax");
 
-    const [bottom, top] = getAxisYDomain(-1, -1, 20);
+    const [bottom, top] = getAxisYDomain(-1, -1, 5);
     setBottom(bottom);
     setTop(top);
   };
@@ -182,14 +182,14 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
           <Legend />
 
           <Line
-            type="monotone"
+            type="linear"
             dataKey="price"
             stroke="#8884d8"
             dot={false}
             animationDuration={300}
           />
           <Line
-            type="monotone"
+            type="linear"
             dataKey="prediction"
             stroke="#82ca9d"
             dot={false}

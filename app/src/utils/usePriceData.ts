@@ -34,12 +34,14 @@ const usePriceData = (symbol: string) => {
             );
           }
 
+          const offset = data.prices.length + 15 - data.predictions.length;
+
           setPriceData({
             symbol: data.symbol,
             data: data.timestamps.map((timestamp, i) => ({
               timestamp: timestamp,
-              price: i < data.prices.length ? data.prices[i] : undefined,
-              prediction: data.predictions[i],
+              price: data.prices[i],
+              prediction: data.predictions[i - offset],
             })),
           });
         })
