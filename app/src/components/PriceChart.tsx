@@ -138,7 +138,8 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     return <div></div>;
   };
 
-  if (!symbol) return <div className="p-5">Please select a symbol</div>;
+  if (!symbol)
+    return <div className="text-white p-5">Please select a symbol</div>;
   if (!data)
     return (
       <div className="p-5">
@@ -184,14 +185,16 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
           <Line
             type="linear"
             dataKey="price"
-            stroke="#8884d8"
+            stroke="#0070D0"
+            strokeWidth={1.5}
             dot={false}
             animationDuration={300}
           />
           <Line
             type="linear"
             dataKey="prediction"
-            stroke="#82ca9d"
+            stroke="#00D070"
+            strokeWidth={1.5}
             dot={false}
             animationDuration={300}
           />

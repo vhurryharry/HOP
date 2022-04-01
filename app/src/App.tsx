@@ -8,7 +8,7 @@ const App = () => {
   const [symbol, setSymbol] = useState<ISymbol>();
 
   return (
-    <div className="w-screen h-screen flex flex-col">
+    <div className="w-screen h-screen flex flex-col bg-slate-900">
       <div className="p-5 pb-0">
         <SymbolSelect symbol={symbol} onSelect={setSymbol} />
       </div>
