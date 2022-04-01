@@ -55,7 +55,7 @@ def predict_once(prices):
 
     model = load_model('stock_prediction.h5')
 
-    pd = model.predict(x)
+    pd = model(x)
     pd = scaler.inverse_transform(pd)
 
     return pd[:, 0].tolist()
