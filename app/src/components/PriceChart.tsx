@@ -75,7 +75,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     if (refAreaLeft > refAreaRight) [rAL, rAR] = [rAR, rAL];
 
     // yAxis domain
-    const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 5);
+    const [bottom, top] = getAxisYDomain(rAL, rAR, 5);
 
     setRefAreaLeft("");
     setRefAreaRight("");
