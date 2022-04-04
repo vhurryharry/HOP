@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSWR, { Key, Fetcher } from "swr";
 
 export interface IAPIPriceData {
   symbol: string;
@@ -13,45 +14,45 @@ export interface IPrice {
   prediction: number;
 }
 
-export interface IPriceData {
-  symbol: string;
-  data: Array<IPrice>;
-}
+const fetcher: Fetcher<IAPIPriceData, string> = (symbol) => {
+  if (!symbol) return null;
+
+  return fetch(`/api/${symbol}`).then((res) => res.json());
+};
 
 const usePriceData = (symbol: string) => {
-  const [priceData, setPriceData] = useState<IPriceData>();
+  const [priceData, setPriceData] = useState<Array<IPrice>>();
+  const { data: apiData, error } = useSWR<IAPIPriceData, string>(
+    symbol,
+    fetcher
+  );
 
   useEffect(() => {
-    if (symbol) {
-      setPriceData(null);
+    if (apiData) {
+      const timestamps = [...apiData.timestamps];
 
-      fetch(`/api/${symbol}`)
-        .then((res) => res.json())
-        .then((data: IAPIPriceData) => {
-          for (let i = 0; i < 15; i++) {
-            data.timestamps.push(
-              data.timestamps[data.timestamps.length - 1] + 60 * 60 * 24
-            );
-          }
+      for (let i = 0; i < 15; i++) {
+        timestamps.push(timestamps[timestamps.length - 1] + 60 * 60 * 24);
+      }
 
-          const offset = data.prices.length + 15 - data.predictions.length;
+      const offset = apiData.prices.length + 15 - apiData.predictions.length;
 
-          setPriceData({
-            symbol: data.symbol,
-            data: data.timestamps.map((timestamp, i) => ({
-              timestamp: timestamp,
-              price: data.prices[i],
-              prediction: data.predictions[i - offset],
-            })),
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      setPriceData(
+        timestamps.map((timestamp, i) => ({
+          timestamp: timestamp,
+          price: apiData.prices[i],
+          prediction: apiData.predictions[i - offset],
+        }))
+      );
     }
-  }, [symbol]);
+  }, [apiData]);
 
-  return priceData;
+  return {
+    symbol: apiData?.symbol,
+    priceData,
+    isLoading: !apiData && !error,
+    error,
+  };
 };
 
 export default usePriceData;

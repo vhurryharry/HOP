@@ -20,9 +20,8 @@ interface IPriceChartProps {
 }
 
 const PriceChart = ({ symbol }: IPriceChartProps) => {
-  const priceData = usePriceData(symbol?.symbol);
+  const { priceData, isLoading, error } = usePriceData(symbol?.symbol);
 
-  const [data, setData] = useState(priceData?.data);
   const [refAreaLeft, setRefAreaLeft] = useState("");
   const [refAreaRight, setRefAreaRight] = useState("");
   const [top, setTop] = useState(0);
@@ -32,18 +31,16 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
 
   useEffect(() => {
     if (priceData) {
-      setData(priceData?.data);
-
       const [bottom, top] = getAxisYDomain(-1, -1, 5);
       setBottom(bottom);
       setTop(top);
-    } else {
-      setData(null);
+      setLeft("dataMin");
+      setRight("dataMax");
     }
-  }, [priceData]);
+  }, [isLoading, priceData]);
 
   const getAxisYDomain = (from, to, offset) => {
-    const refData = priceData.data;
+    const refData = priceData;
     let [bottom, top] = [-1, -1];
 
     refData.forEach((d) => {
@@ -79,7 +76,6 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
 
     setRefAreaLeft("");
     setRefAreaRight("");
-    setData(data.slice());
     setLeft(rAL);
     setRight(rAR);
     setBottom(bottom);
@@ -89,7 +85,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
   const zoomOut = () => {
     setRefAreaLeft("");
     setRefAreaRight("");
-    setData(data.slice());
+
     setLeft("dataMin");
     setRight("dataMax");
 
@@ -140,7 +136,8 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
 
   if (!symbol)
     return <div className="text-white p-5">Please select a symbol</div>;
-  if (!data)
+
+  if (isLoading)
     return (
       <div className="p-5">
         <Spinner />
@@ -155,7 +152,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
 
       <ResponsiveContainer width="100%" height="95%">
         <LineChart
-          data={data}
+          data={priceData?.slice()}
           margin={{
             top: 20,
             right: 20,
@@ -176,8 +173,14 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
             domain={[left, right]}
             type="number"
             tickFormatter={timeConverter}
+            stroke="#fff"
           />
-          <YAxis allowDataOverflow domain={[bottom, top]} type="number" />
+          <YAxis
+            allowDataOverflow
+            domain={[bottom, top]}
+            type="number"
+            stroke="#fff"
+          />
 
           <Tooltip content={CustomToolTip} />
           <Legend />
