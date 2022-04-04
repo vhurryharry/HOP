@@ -39,7 +39,7 @@ const SymbolSelectWrapper = ({ symbol, onSelect }: ISymbolSelectProps) => {
       itemRenderer={renderSymbol}
       onItemSelect={onSelect}
       noResults={<MenuItem disabled={true} text="No results." />}
-      className="w-5"
+      className="w-5 grow"
       filterable={true}
       query={query}
       onQueryChange={setQuery}
