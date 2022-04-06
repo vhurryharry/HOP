@@ -31,7 +31,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
 
   useEffect(() => {
     if (priceData) {
-      const [bottom, top] = getAxisYDomain(-1, -1, 5);
+      const [bottom, top] = getAxisYDomain(-1, -1, 1);
       setBottom(bottom);
       setTop(top);
       setLeft("dataMin");
@@ -72,7 +72,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     if (refAreaLeft > refAreaRight) [rAL, rAR] = [rAR, rAL];
 
     // yAxis domain
-    const [bottom, top] = getAxisYDomain(rAL, rAR, 5);
+    const [bottom, top] = getAxisYDomain(rAL, rAR, 1);
 
     setRefAreaLeft("");
     setRefAreaRight("");
@@ -89,7 +89,7 @@ const PriceChart = ({ symbol }: IPriceChartProps) => {
     setLeft("dataMin");
     setRight("dataMax");
 
-    const [bottom, top] = getAxisYDomain(-1, -1, 5);
+    const [bottom, top] = getAxisYDomain(-1, -1, 1);
     setBottom(bottom);
     setTop(top);
   };
