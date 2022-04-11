@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useSWR, { Key, Fetcher } from "swr";
+import useSWR, { Fetcher } from "swr";
 
 export interface IAPIPriceData {
   symbol: string;
@@ -17,7 +17,7 @@ export interface IPrice {
 const fetcher: Fetcher<IAPIPriceData, string> = (symbol) => {
   if (!symbol) return null;
 
-  return fetch(`/api/${symbol}`).then((res) => res.json());
+  return fetch(`/api/stock/${symbol}`).then((res) => res.json());
 };
 
 const usePriceData = (symbol: string) => {

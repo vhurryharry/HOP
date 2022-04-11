@@ -645,6 +645,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.181":
+  version: 4.14.181
+  resolution: "@types/lodash@npm:4.14.181"
+  checksum: 0d1863d8383fd2f8bb42e9e3fc1d6255bb88ff034d6df848941063698944313dae944fc1270315613e3d303fae7c7a9a86085ad3235ed6204c56c4b0b3699aa9
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 17.0.23
   resolution: "@types/node@npm:17.0.23"
@@ -867,6 +874,7 @@ __metadata:
     "@testing-library/react": ^12.0.0
     "@testing-library/user-event": ^13.2.1
     "@types/jest": ^27.0.1
+    "@types/lodash": ^4.14.181
     "@types/node": ^16.7.13
     "@types/papaparse": ^5.3.2
     "@types/react": ^17.0.20
@@ -874,6 +882,7 @@ __metadata:
     "@types/recharts": ^1.8.23
     "@vitejs/plugin-react": ^1.2.0
     autoprefixer: ^10.4.4
+    lodash: ^4.17.21
     papaparse: ^5.3.2
     postcss: ^8.4.12
     react: ^17.0.2
