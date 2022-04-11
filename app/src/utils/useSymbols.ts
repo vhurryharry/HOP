@@ -1,44 +1,25 @@
 import { useEffect, useState } from "react";
-import Papa from "papaparse";
+import useSWR, { Key, Fetcher } from "swr";
 
 export interface ISymbol {
   symbol: string;
   name: string;
-  sector: string;
-  industry: string;
+  exch: string;
+  type: string;
+  exchDisp: string;
+  typeDisp: string;
 }
 
-const useSymbols = (keyword?: string) => {
-  const [symbols, setSymbols] = useState<ISymbol[]>([]);
+const fetcher: Fetcher<Array<ISymbol>, string> = (query) => {
+  if (!query) return [];
 
-  useEffect(() => {
-    Papa.parse<ISymbol>("/symbols.csv", {
-      download: true,
-      header: true,
-      complete: (results) => {
-        setSymbols(results.data);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }, []);
+  return fetch(`/api/symbol/${query}`).then((res) => res.json());
+};
 
-  return {
-    symbols: symbols
-      .filter((symbol) => {
-        if (keyword) {
-          return (
-            symbol.name.toLowerCase().includes(keyword.toLowerCase()) ||
-            symbol.symbol.toLowerCase().includes(keyword.toLowerCase())
-          );
-        }
+const useSymbols = (query: string) => {
+  const { data, error } = useSWR<Array<ISymbol>, string>(query, fetcher);
 
-        return true;
-      })
-      .slice(0, 50),
-    loading: symbols.length === 0,
-  };
+  return { data, error };
 };
 
 export default useSymbols;

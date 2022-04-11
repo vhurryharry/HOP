@@ -2,8 +2,8 @@ import { useState } from "react";
 import { SWRConfig } from "swr";
 
 import PriceChart from "./components/PriceChart";
-import SymbolSelect from "./components/SymbolSelectAPI";
-import { ISymbol } from "./utils/useSymbolsAPI";
+import SymbolSelect from "./components/SymbolSelect";
+import { ISymbol } from "./utils/useSymbols";
 
 const App = () => {
   const [symbol, setSymbol] = useState<ISymbol>();

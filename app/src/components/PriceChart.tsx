@@ -13,7 +13,7 @@ import {
 import { Button, Spinner } from "@blueprintjs/core";
 
 import usePriceData from "../utils/usePriceData";
-import { ISymbol } from "../utils/useSymbolsAPI";
+import { ISymbol } from "../utils/useSymbols";
 
 interface IPriceChartProps {
   symbol?: ISymbol;

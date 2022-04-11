@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useState } from "react";
 import { Button, MenuItem } from "@blueprintjs/core";
 import { Select, ItemRenderer } from "@blueprintjs/select";
@@ -12,7 +13,7 @@ const SymbolSelect = Select.ofType<ISymbol>();
 
 const SymbolSelectWrapper = ({ symbol, onSelect }: ISymbolSelectProps) => {
   const [query, setQuery] = useState("");
-  const symbols = useSymbols(query);
+  const { data, error } = useSymbols(query);
 
   const renderSymbol: ItemRenderer<ISymbol> = (
     symbol,
@@ -28,21 +29,23 @@ const SymbolSelectWrapper = ({ symbol, onSelect }: ISymbolSelectProps) => {
         key={symbol.symbol}
         onClick={handleClick}
         text={`${symbol.symbol} - ${symbol.name}`}
-        label={symbol.industry}
+        label={symbol.exchDisp}
       />
     );
   };
 
   return (
     <SymbolSelect
-      items={symbols.symbols}
+      items={data || []}
       itemRenderer={renderSymbol}
       onItemSelect={onSelect}
-      noResults={<MenuItem disabled={true} text="No results." />}
+      noResults={
+        <MenuItem disabled={true} text={data ? "No results." : "Loading..."} />
+      }
       className="w-5 grow"
       filterable={true}
       query={query}
-      onQueryChange={setQuery}
+      onQueryChange={_.debounce(setQuery, 500)}
       popoverProps={{
         popoverClassName: "max-h-96 overflow-y-auto",
       }}
