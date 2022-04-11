@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import useSWR, { Key, Fetcher } from "swr";
+import useSWR, { Fetcher } from "swr";
 
 export interface ISymbol {
   symbol: string;

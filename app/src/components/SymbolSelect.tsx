@@ -13,7 +13,7 @@ const SymbolSelect = Select.ofType<ISymbol>();
 
 const SymbolSelectWrapper = ({ symbol, onSelect }: ISymbolSelectProps) => {
   const [query, setQuery] = useState("");
-  const { data, error } = useSymbols(query);
+  const { data } = useSymbols(query);
 
   const renderSymbol: ItemRenderer<ISymbol> = (
     symbol,
@@ -40,7 +40,12 @@ const SymbolSelectWrapper = ({ symbol, onSelect }: ISymbolSelectProps) => {
       itemRenderer={renderSymbol}
       onItemSelect={onSelect}
       noResults={
-        <MenuItem disabled={true} text={data ? "No results." : "Loading..."} />
+        <MenuItem
+          disabled={true}
+          text={
+            !query ? "Type to search..." : data ? "No results." : "Loading..."
+          }
+        />
       }
       className="w-5 grow"
       filterable={true}
