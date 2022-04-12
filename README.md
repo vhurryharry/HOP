@@ -19,6 +19,7 @@ The reasons for selecting this one for my HOP include:
 - Blueprint.js (UI library)
 - Recharts (chart library)
 - SWR (Stale-While-Revalidate, API requests)
+- Redis (Caching API responses)
 - LSTM (Long Short-Term Memory) model (Prediction model)
 - numpy, sklearn (Python libraries for data processing)
 
