@@ -27,7 +27,7 @@ The reasons for selecting this one for my HOP include:
 - This project uses docker for Redis, so please make sure that the docker is running on your machine.
 
 - Sign up for the Yahoo Finance API key [here](https://www.yahoofinanceapi.com/).
-  Add a `.env` file inside the `api` folder and add your API key.
+  Create a `.env` file from the `.env.template` file inside the `api` folder and add your API key.
 
         YAHOO_KEY=Your API Key
 

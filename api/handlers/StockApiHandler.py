@@ -3,9 +3,11 @@ import os
 import requests
 
 from predictor.predictor import predict, train
+from common.extensions import cache
 
 
 class StockApiHandler(Resource):
+    @cache.cached(timeout=60 * 60 * 24, query_string=True)
     def get_train(self, symbol):
         url = "https://yfapi.net/v8/finance/chart/{}".format(symbol)
         queryString = {"range": "10y",
@@ -37,6 +39,7 @@ class StockApiHandler(Resource):
             'predictions': predictions
         }
 
+    @cache.cached(timeout=60 * 60 * 24, query_string=True)
     def get(self, symbol):
         url = "https://yfapi.net/v8/finance/chart/{}".format(symbol)
         queryString = {"range": "10y",

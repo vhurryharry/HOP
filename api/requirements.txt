@@ -5,3 +5,4 @@ numpy==1.22.3
 requests==2.27.1
 scikit_learn==1.0.2
 tensorflow==2.8.0
+tf-estimator-nightly==2.8.0.dev2021122109
