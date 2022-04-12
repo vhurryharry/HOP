@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS  # comment this on deployment
-from api.StockApiHandler import StockApiHandler
-from api.SymbolApiHandler import SymbolApiHandler
+from handlers.StockApiHandler import StockApiHandler
+from handlers.SymbolApiHandler import SymbolApiHandler
 
 app = Flask(__name__)
 CORS(app)  # comment this on deployment
