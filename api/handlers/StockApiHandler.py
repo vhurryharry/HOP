@@ -2,7 +2,7 @@ from flask_restful import Resource
 import os
 import requests
 
-from predictor.predictor import predict, train
+from predictor.avg_predictor import predict
 from common.extensions import cache
 
 
@@ -25,7 +25,7 @@ class StockApiHandler(Resource):
 
             timestamps = data["chart"]["result"][0]["timestamp"]
             prices = data["chart"]["result"][0]["indicators"]["quote"][0]["close"]
-            train(prices)
+            # train(prices)
             predictions = predict(prices)
         else:
             timestamps = []

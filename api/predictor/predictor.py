@@ -39,7 +39,7 @@ def train(prices):
 
     model.compile(loss='mean_squared_error', optimizer='adam')
 
-    model.fit(x_train, y_train, epochs=150, batch_size=32)
+    model.fit(x_train, y_train, epochs=30, batch_size=32)
     model.save('stock_prediction.h5')
 
 
